@@ -1,22 +1,11 @@
-FROM alpine
-RUN apk add --no-cache --upgrade bash
-RUN apk add sed 
-RUN apk add openssh 
-RUN apk add jq
-COPY build.sh .
-COPY BP-BASE-SHELL-STEPS .
-RUN chmod +x build.sh
+# BP-MYSQL-BACKUP-STEP
 
-ENV ACTIVITY_SUB_TASK_CODE BP-STRING-REPLACE-TASK
-ENV SLEEP_DURATION 10m
-ENV DATABASE_BACK_DIR ""
-ENV DATABASE ""
-ENV USERNAME ""
-ENV IP_ADDRESS ""
-ENV SSH_PORT ""
-ENV DB_USER ""
-ENV DB_PASSWORD ""
-ENV DATABASE ""
-ENV PRIVATE_KEY ""
+This step will help you to take backup of the buildpiper database.
 
-ENTRYPOINT [ "./build.sh" ]
+## Setup
+* Clone the code available at [BP-MYSQL-BACKUP-STEP](https://github.com/OT-BUILDPIPER-MARKETPLACE/BP-MYSQL-BACKUP-STEP.git)
+* Build the docker image
+```
+git submodule init
+git submodule update
+docker build -t ot/db-backup:0.1 .
