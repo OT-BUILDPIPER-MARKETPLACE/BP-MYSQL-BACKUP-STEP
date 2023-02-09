@@ -9,7 +9,7 @@ source BP-BASE-SHELL-STEPS/aws-functions.sh
 logInfoMessage "I'll take a backup of the buildpiper mysql database"
 logInfoMessage "Received below arguments"
 logInfoMessage "Database: $DATABASE"
-logInfoMessage "Database backup directory: $DATABASE_BACK_DIR"
+logInfoMessage "Database backup directory: $DATABASE_BACKUP_DIR"
 
 DATE=$(date +"%d-%m-%-Y")
 
@@ -21,9 +21,9 @@ fi
 
 SERVER="ssh $USERNAME@$IP_ADDRESS -i key.pem -p $SSH_PORT -o stricthostkeychecking=no"
 
-if [ ! -d "$HOME/$DATABASE_BACK_DIR" ]; then
-   echo "Creating directory for mysql database backup: $DATABASE_BACK_DIR"
-   mkdir $HOME/$DATABASE_BACK_DIR 
+if [ ! -d "$HOME/$DATABASE_BACKUP_DIR" ]; then
+   echo "Creating directory for mysql database backup: $DATABASE_BACKUP_DIR"
+   mkdir $HOME/$DATABASE_BACKUP_DIR 
 else
    true
 fi
@@ -31,7 +31,7 @@ fi
 DB_CONTAINER=$( $SERVER "docker ps" | awk '{print $NF}' | grep 'db')
 
 if [ "$DB_CONTAINER" == "db" ]; then
-   $SERVER docker exec -i db mysqldump -u$DB_USER -p$DB_PASSWORD $DATABASE > $HOME/$DATABASE_BACK_DIR/sql_dump_$DATE.sql
+   $SERVER docker exec -i db mysqldump -u$DB_USER -p$DB_PASSWORD $DATABASE > $HOME/$DATABASE_BACKUP_DIR/sql_dump_$DATE.sql
    logInfoMessage "Congratulations Buildpiper database backup has been successfully taken!!!"
    generateOutput $ACTIVITY_SUB_TASK_CODE true "Congratulations Buildpiper database backup has been successfully taken!!!"
 else
