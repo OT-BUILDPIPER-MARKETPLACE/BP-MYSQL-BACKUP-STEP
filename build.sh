@@ -1,10 +1,10 @@
 #!/bin/bash
 
-source BP-BASE-SHELL-STEPS/functions.sh
-source BP-BASE-SHELL-STEPS/log-functions.sh
-source BP-BASE-SHELL-STEPS/str-functions.sh
-source BP-BASE-SHELL-STEPS/file-functions.sh
-source BP-BASE-SHELL-STEPS/aws-functions.sh
+source functions.sh
+source log-functions.sh
+source str-functions.sh
+source file-functions.sh
+source aws-functions.sh
 
 logInfoMessage "I'll take a backup of the buildpiper mysql database"
 logInfoMessage "Received below arguments"
