@@ -11,6 +11,7 @@ logInfoMessage "Received below arguments"
 logInfoMessage "Database: $DATABASE"
 logInfoMessage "Database backup directory: $DATABASE_BACKUP_DIR"
 
+sleep $SLEEP_DURATION
 CURRENT_DATE=$(date "+%D-%T")
 
 if [ -f "key.pem" ]; then
