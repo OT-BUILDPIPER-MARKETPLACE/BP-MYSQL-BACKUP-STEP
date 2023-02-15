@@ -11,7 +11,6 @@ logInfoMessage "Received below arguments"
 logInfoMessage "Database: $DATABASE"
 logInfoMessage "Database backup directory: $DATABASE_BACKUP_DIR"
 
-sleep $SLEEP_DURATION
 CURRENT_DATE=$(date "+%D-%T")
 
 if [ -f "key.pem" ]; then
@@ -31,6 +30,8 @@ if [ ! -d $SERVER "$DATABASE_BACKUP_DIR" ]; then
 else
    true
 fi
+
+sleep $SLEEP_DURATION
 
 DB_CONTAINER=$( $SERVER "docker ps" | awk '{print $NF}' | grep 'db')
 
