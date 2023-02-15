@@ -11,6 +11,8 @@ logInfoMessage "Received below arguments"
 logInfoMessage "Database: $DATABASE"
 logInfoMessage "Database backup directory: $DATABASE_BACKUP_DIR"
 
+sleep $SLEEP_DURATION
+
 CURRENT_DATE=$(date "+%D-%T")
 
 if [ -f "key.pem" ]; then
@@ -24,14 +26,12 @@ fi
 
 SERVER="ssh $USERNAME@$IP_ADDRESS -i key.pem -p $SSH_PORT -o stricthostkeychecking=no"
 
-if [ ! -d $SERVER "$DATABASE_BACKUP_DIR" ]; then
+if $SERVER [ -d $DATABASE_BACKUP_DIR ]; then
+   true
+else
    echo "Creating directory for mysql database backup: $DATABASE_BACKUP_DIR"
    $SERVER "mkdir $DATABASE_BACKUP_DIR" 
-else
-   true
 fi
-
-sleep $SLEEP_DURATION
 
 DB_CONTAINER=$( $SERVER "docker ps" | awk '{print $NF}' | grep 'db')
 
