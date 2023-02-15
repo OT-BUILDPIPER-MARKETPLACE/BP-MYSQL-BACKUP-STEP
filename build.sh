@@ -13,7 +13,7 @@ logInfoMessage "Database backup directory: $DATABASE_BACKUP_DIR"
 
 sleep $SLEEP_DURATION
 
-CURRENT_DATE=$(date "+%D-%T")
+CURRENT_DATE=$(date "+%m_%d_%y-%H:%M")
 
 if [ -f "key.pem" ]; then
    true
@@ -36,7 +36,7 @@ fi
 DB_CONTAINER=$( $SERVER "docker ps" | awk '{print $NF}' | grep 'db')
 
 if [ "$DB_CONTAINER" == "db" ]; then
-   $SERVER docker exec -i db mysqldump -u$DB_USER -p$DB_PASSWORD $DATABASE > $DATABASE_BACKUP_DIR/sql_dump_$CURRENT_DATE.sql
+   $SERVER "docker exec -i db mysqldump -u$DB_USER -p$DB_PASSWORD $DATABASE > $DATABASE_BACKUP_DIR/sql_dump_$CURRENT_DATE.sql"
    logInfoMessage "Congratulations Buildpiper database backup has been successfully taken!!!"
    generateOutput $ACTIVITY_SUB_TASK_CODE true "Congratulations Buildpiper database backup has been successfully taken!!!"
 else
