@@ -25,9 +25,9 @@ fi
 
 SERVER="ssh $USERNAME@$IP_ADDRESS -i key.pem -p $SSH_PORT -o stricthostkeychecking=no"
 
-if [ ! -d "$DATABASE_BACKUP_DIR" ]; then
+if [ ! -d $SERVER "$DATABASE_BACKUP_DIR" ]; then
    echo "Creating directory for mysql database backup: $DATABASE_BACKUP_DIR"
-   mkdir $DATABASE_BACKUP_DIR 
+   $SERVER "mkdir $DATABASE_BACKUP_DIR" 
 else
    true
 fi
