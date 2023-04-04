@@ -13,7 +13,7 @@ logInfoMessage "Database backup directory: $DATABASE_BACKUP_DIR"
 
 sleep $SLEEP_DURATION
 
-CURRENT_DATE=$(date '+%e_%b_%Y-%I:%M')
+CURRENT_DATE=$(date '+%e_%b_%Y-%I:%M' | sed 's/ //g')
 
 if [ -f "key.pem" ]; then
    true
