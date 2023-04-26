@@ -36,7 +36,7 @@ fi
 DB_CONTAINER=$( $SERVER "docker ps" | awk '{print $NF}' | grep 'db')
 
 if [ "$DB_CONTAINER" == "db" ]; then
-   $SERVER "docker exec -i db mysqldump -u$DB_USER -p$DB_PASSWORD $DATABASE > $DATABASE_BACKUP_DIR/sql_dump_$CURRENT_DATE.sql"
+   $SERVER "docker exec -i db mysqldump -u$CREDENTIAL_USERNAME -p$CREDENTIAL_PASSWORD $DATABASE > $DATABASE_BACKUP_DIR/sql_dump_$CURRENT_DATE.sql"
    logInfoMessage "Congratulations Buildpiper database backup has been successfully taken!!!"
    generateOutput $ACTIVITY_SUB_TASK_CODE true "Congratulations Buildpiper database backup has been successfully taken!!!"
 else
